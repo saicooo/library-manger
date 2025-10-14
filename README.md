@@ -1,5 +1,9 @@
 A RESTful web application for managing a library built with Node.js, Express, and Pug templates. This project was developed as part of Laboratory Work 2 for the "Web Technologies" course at SPbETU "LETI".
 
+## Try from here
+
+[**Play Tetris Now!**](https://saicooo.github.io/Tetris-game)
+
 library-app/
 - ├── data/
 - │   └── books.json              # JSON database for books
@@ -17,7 +21,4 @@ library-app/
 - └── README.md                   # Project documentation
 
 
-## 🌐 Live Demo
 
-The application is deployed and available at:  
-**🔗 [https://your-unique-library-app-name.herokuapp.com](https://your-unique-library-app-name.herokuapp.com)**
