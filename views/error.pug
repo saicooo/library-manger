@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .error-section
+    .error-content
+      i.fas.fa-exclamation-circle.error-icon
+      h1.error-title Oops! Something went wrong
+      p.error-message= error
+      a.btn.btn-primary(href="/")
+        i.fas.fa-home
+        | Back to Home

@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  .form-section
+    h2
+      i.fas.fa-edit
+      | #{book ? 'Edit Book' : 'Add New Book'}
+    
+    form.book-form(method="POST", action=formAction)
+      if book && formAction.includes('_method=PUT')
+        input(type="hidden", name="_method", value="PUT")
+      
+      .form-grid
+        .form-group
+          label(for="title") Book Title: *
+          input(type="text", id="title", name="title", value=book ? book.title : "", required, placeholder="Enter book title")
+        
+        .form-group
+          label(for="author") Author: *
+          input(type="text", id="author", name="author", value=book ? book.author : "", required, placeholder="Enter author name")
+        
+        .form-group
+          label(for="year") Publication Year: *
+          input(type="number", id="year", name="year", value=book ? book.year : new Date().getFullYear(), required, min="1000", max="2025")
+        
+        .form-group
+          label(for="isbn") ISBN:
+          input(type="text", id="isbn", name="isbn", value=book ? book.isbn : "", placeholder="Optional ISBN")
+        
+        .form-group.full-width
+          label(for="description") Description:
+          textarea(id="description", name="description", rows="4", placeholder="Enter book description (optional)")= book ? book.description : ''
+      
+      .form-actions
+        a.btn.btn-secondary(href="/") Cancel
+        button.btn.btn-primary(type="submit")
+          i.fas.fa-save
+          | #{book ? 'Update Book' : 'Add Book'}

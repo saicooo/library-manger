@@ -1,0 +1,122 @@
+extends layout
+
+block content
+  .filters-section
+    h2
+      i.fas.fa-filter
+      |  Book Filters
+    
+    form(method="get")#filter-form.filter-form
+      .filter-group
+        label.filter-checkbox
+          input(type="checkbox", name="available", value="true", checked=!!filters.available)
+          span.checkmark
+          | Available Only
+        label.filter-checkbox
+          input(type="checkbox", name="overdue", value="true", checked=!!filters.overdue)
+          span.checkmark
+          | Overdue Only
+      
+      .search-group
+        input(type="text", name="search", placeholder="Search books or authors...", value=filters.search || "")
+        button(type="submit")
+          i.fas.fa-search
+          | Search
+    
+    //- .actions
+    //-   a.btn.btn-primary(href="/books/new")
+    //-     i.fas.fa-plus
+    //-     | Add New Book
+
+  .books-section
+    h2
+      i.fas.fa-books
+      |  Book Collection 
+      span.count (#{books.length} books)
+    
+    if books.length === 0
+      .empty-state
+        i.fas.fa-book-open
+        h3 No books found
+        p Try adjusting your filters or add some books to get started.
+        a.btn.btn-primary(href="/books/new") Add Your First Book
+    
+    else
+      .books-grid
+        each book in books
+          .book-card(class=book.isAvailable ? 'available' : 'borrowed')
+            .book-header
+              h3.book-title= book.title
+              .book-actions
+                a.btn.btn-small(href=`/books/${book.id}`)
+                  i.fas.fa-eye
+                  | View
+                a.btn.btn-small.btn-secondary(href=`/books/${book.id}/edit`)
+                  i.fas.fa-edit
+                  | Edit
+                button.btn.btn-small.btn-danger.delete-btn(data-id=book.id, data-title=book.title)
+                  i.fas.fa-trash
+                  | Delete
+            
+            .book-info
+              p.author
+                i.fas.fa-user-edit
+                | #{book.author}
+              p.year
+                i.fas.fa-calendar
+                | #{book.year}
+              if book.isbn
+                p.isbn
+                  i.fas.fa-barcode
+                  | #{book.isbn}
+            
+            .book-status
+              if book.isAvailable
+                .status.available
+                  i.fas.fa-check-circle
+                  | Available
+                button.btn.btn-small.btn-success.lend-btn(data-id=book.id)
+                  i.fas.fa-hand-holding
+                  | Lend Book
+              else
+                .status.borrowed
+                  i.fas.fa-clock
+                  | Borrowed
+                .borrower-info
+                  p
+                    i.fas.fa-user
+                    | #{book.reader}
+                  p
+                    i.fas.fa-calendar-alt
+                    | Due: #{book.dueDate}
+                  button.btn.btn-small.btn-warning.return-btn(data-id=book.id)
+                    i.fas.fa-undo
+                    | Return Book
+
+  //- Lend Book Modal - CENTERED
+  dialog#lendModal.modal.centered-modal
+    .modal-content
+      h3
+        | Lend Book
+      form#lendForm
+        input(type="hidden", name="bookId", id="lendBookId")
+        .form-group
+          label(for="readerName") Reader Name:
+          input(type="text", id="readerName", name="reader", required, placeholder="Enter reader's name")
+        .form-group
+          label(for="dueDate") Due Date:
+          input(type="date", id="dueDate", name="dueDate", required)
+        .modal-actions
+          button.btn(type="button", id="cancelLend") Cancel
+          button.btn.btn-primary(type="submit") Lend Book
+
+  //- Delete Confirmation Modal - CENTERED
+  dialog#deleteModal.modal.centered-modal
+    .modal-content
+      h3
+        i.fas.fa-exclamation-triangle
+        | Confirm Delete
+      p#deleteMessage Are you sure you want to delete this book?
+      .modal-actions
+        button.btn(type="button", id="cancelDelete") Cancel
+        button.btn.btn-danger(type="button", id="confirmDelete") Delete Book
