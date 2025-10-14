@@ -1,6 +1,5 @@
 A RESTful web application for managing a library built with Node.js, Express, and Pug templates. This project was developed as part of Laboratory Work 2 for the "Web Technologies" course at SPbETU "LETI".
 
-## Try from here
 
 
 library-app/
