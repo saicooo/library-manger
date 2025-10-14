@@ -15,3 +15,9 @@ library-app/
 - ├── app.js                      # Main application entry point
 - ├── package.json                # Project dependencies and scripts
 - └── README.md                   # Project documentation
+
+
+## 🌐 Live Demo
+
+The application is deployed and available at:  
+**🔗 [https://your-unique-library-app-name.herokuapp.com](https://your-unique-library-app-name.herokuapp.com)**
