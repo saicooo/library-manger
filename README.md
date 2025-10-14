@@ -2,7 +2,7 @@ A RESTful web application for managing a library built with Node.js, Express, an
 
 ## Try from here
 
-[**Play Tetris Now!**](https://saicooo.github.io/Tetris-game)
+[**Play Tetris Now!**](https://saicooo.github.io/library-manger)
 
 library-app/
 - ├── data/
